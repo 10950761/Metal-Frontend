@@ -1,0 +1,405 @@
+        .explore-container {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a, #0e141f);
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .header {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #4a90e2;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            background: linear-gradient(45deg, #4a90e2, #7b68ee, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 5px rgba(74, 144, 226, 0.5)); }
+            to { filter: drop-shadow(0 0 20px rgba(74, 144, 226, 0.8)); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .category {
+            margin-bottom: 4rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .category h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #4a90e2;
+            position: relative;
+        }
+
+        .category h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #4a90e2, #7b68ee);
+            border-radius: 2px;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .item {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(74, 144, 226, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        .item:hover::before {
+            opacity: 1;
+            animation: shimmer 1.5s ease-in-out;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .item:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 20px 40px rgba(74, 144, 226, 0.3);
+        }
+
+        .item-visual {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .item p {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+            line-height: 1.4;
+        }
+
+        /* Tool Animations */
+        .hammer {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #8B4513, #A0522D);
+            border-radius: 5px;
+            position: relative;
+            animation: hammer-swing 2s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+
+        .hammer::after {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 20px;
+            background: linear-gradient(45deg, #C0C0C0, #D3D3D3);
+            border-radius: 3px;
+        }
+
+        @keyframes hammer-swing {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(-30deg); }
+        }
+
+        .grinding-stone {
+            width: 90px;
+            height: 90px;
+            background: radial-gradient(circle, #696969, #2F4F4F);
+            border-radius: 50%;
+            position: relative;
+            animation: spin 3s linear infinite;
+        }
+
+        .grinding-stone::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: #1a1a1a;
+            border-radius: 50%;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .wrench {
+            width: 100px;
+            height: 20px;
+            background: linear-gradient(90deg, #C0C0C0, #A9A9A9);
+            border-radius: 10px;
+            position: relative;
+            animation: wrench-turn 2s ease-in-out infinite;
+        }
+
+        .wrench::before {
+            content: '';
+            position: absolute;
+            right: -5px;
+            top: -10px;
+            width: 30px;
+            height: 40px;
+            background: linear-gradient(45deg, #C0C0C0, #A9A9A9);
+            border-radius: 15px;
+        }
+
+        @keyframes wrench-turn {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(15deg); }
+        }
+
+        .pipe {
+            width: 100px;
+            height: 20px;
+            background: linear-gradient(90deg, #4682B4, #5F9EA0);
+            border-radius: 10px;
+            position: relative;
+            animation: pipe-flow 3s ease-in-out infinite;
+            overflow: hidden;
+        }
+
+        .pipe::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: -20px;
+            width: 20px;
+            height: 4px;
+            background: rgba(173, 216, 230, 0.8);
+            border-radius: 2px;
+            animation: flow 2s linear infinite;
+        }
+
+        @keyframes flow {
+            from { left: -20px; }
+            to { left: 120px; }
+        }
+
+        @keyframes pipe-flow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .electrode {
+            width: 8px;
+            height: 80px;
+            background: linear-gradient(180deg, #FF4500, #FF6347);
+            border-radius: 4px;
+            position: relative;
+            animation: electrode-spark 1.5s ease-in-out infinite;
+        }
+
+        .electrode::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -6px;
+            width: 20px;
+            height: 10px;
+            background: radial-gradient(circle, #FFD700, transparent);
+            border-radius: 50%;
+            animation: spark 1.5s ease-in-out infinite;
+        }
+
+        @keyframes spark {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        @keyframes electrode-spark {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.5); }
+        }
+
+        .drill-bit {
+            width: 8px;
+            height: 100px;
+            background: linear-gradient(180deg, #C0C0C0, #708090);
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            animation: drill-spin 0.8s linear infinite;
+        }
+
+        @keyframes drill-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .sheet-metal {
+            width: 90px;
+            height: 60px;
+            background: linear-gradient(45deg, #C0C0C0, #D3D3D3);
+            border-radius: 5px;
+            position: relative;
+            animation: metal-shine 3s ease-in-out infinite;
+        }
+
+        @keyframes metal-shine {
+            0%, 100% { box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.2); }
+            50% { box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.6); }
+        }
+
+        .bolt {
+            width: 15px;
+            height: 60px;
+            background: linear-gradient(180deg, #696969, #808080);
+            border-radius: 7px;
+            position: relative;
+            animation: bolt-tighten 2s ease-in-out infinite;
+        }
+
+        .bolt::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: -5px;
+            width: 25px;
+            height: 15px;
+            background: linear-gradient(45deg, #696969, #808080);
+            clip-path: polygon(20% 0%, 80% 0%, 100% 50%, 80% 100%, 20% 100%, 0% 50%);
+        }
+
+        @keyframes bolt-tighten {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(45deg); }
+        }
+
+        .chain {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            animation: chain-swing 3s ease-in-out infinite;
+        }
+
+        .chain::before,
+        .chain::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 40px;
+            border: 4px solid #696969;
+            border-radius: 10px;
+            background: transparent;
+        }
+
+        .chain::before {
+            top: 0;
+            left: 30px;
+        }
+
+        .chain::after {
+            top: 20px;
+            left: 30px;
+            transform: rotate(90deg);
+        }
+
+        @keyframes chain-swing {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        .bucket {
+            width: 70px;
+            height: 60px;
+            background: linear-gradient(45deg, #708090, #778899);
+            border-radius: 0 0 35px 35px;
+            position: relative;
+            animation: bucket-fill 4s ease-in-out infinite;
+        }
+
+        .bucket::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -10px;
+            right: -10px;
+            width: 90px;
+            height: 8px;
+            background: linear-gradient(90deg, #708090, #778899);
+            border-radius: 20px;
+        }
+
+        @keyframes bucket-fill {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .items-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }

@@ -1,0 +1,146 @@
+/* Enhanced CSS with modern styling */
+.view-history-container {
+  min-height: 70vh;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 2rem;
+}
+
+.history-box {
+  background-color: white;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 3rem;
+  width: 100%;
+  max-width: 32rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.history-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: linear-gradient(90deg, #3b82f6 0%, #22c55e 100%);
+}
+
+.history-header {
+  margin-bottom: 2.5rem;
+}
+
+.history-heading {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.history-subheading {
+  font-size: 1rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.history-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.button-link {
+  text-decoration: none;
+  display: block;
+}
+
+.sales-button,
+.purchase-button {
+  width: 100%;
+  color: white;
+  padding: 1.25rem 1.5rem;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.sales-button {
+  background-color: #3b82f6;
+}
+
+.sales-button:hover {
+  background-color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(59, 130, 246, 0.25);
+}
+
+.purchase-button {
+  background-color: #22c55e;
+}
+
+.purchase-button:hover {
+  background-color: #16a34a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(34, 197, 94, 0.25);
+}
+
+.button-icon {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}
+
+.button-text {
+  flex-grow: 1;
+  text-align: left;
+  font-size: 1.1rem;
+}
+
+.button-arrow {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.button-link:hover .button-arrow {
+  transform: translateX(4px);
+}
+
+.history-footer {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.help-link {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.help-link:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+/* Animation for the box */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.history-box {
+  animation: fadeIn 0.5s ease-out forwards;
+}
