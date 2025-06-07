@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './index.css';
 import axios from 'axios';
+import API_BASE_URL from '../../api/config'; 
+
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -22,7 +24,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("https://metal-backend-1.onrender.com/api/users/login", formData);
+      const res = await axios.post(`${API_BASE_URL}/api/users/login`, formData);
 
       alert(res.data.message);
 

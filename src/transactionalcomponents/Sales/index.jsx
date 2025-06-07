@@ -1,5 +1,6 @@
 import React, { useState} from 'react';
 import './index.css';
+import API_BASE_URL from '../../api/config';
 
 const Sales = () => {
   const [formData, setFormData] = useState({
@@ -36,11 +37,16 @@ const Sales = () => {
     setIsSubmitting(true);
     
     try {
-      const response = await fetch('https://metal-backend-1.onrender.com/api/sales', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+  const token = localStorage.getItem("token");
+  const response = await fetch(`${API_BASE_URL}/api/sales`, {
+    method: 'POST',
+    headers: { 
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,  
+    },
+    body: JSON.stringify(formData),
+  });
+
 
       const data = await response.json();
 

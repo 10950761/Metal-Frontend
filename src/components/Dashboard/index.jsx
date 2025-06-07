@@ -5,6 +5,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import "./index.css";
+import API_BASE_URL from "../../api/config";
 
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -27,7 +28,7 @@ const Dashboard = () => {
     }
 
       try {
-        const res = await axios.get("https://metal-backend-1.onrender.com/api/users/profile", {
+        const res = await axios.get(`${API_BASE_URL}/api/users/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -84,7 +84,7 @@ function Sidebar({ isOpen, onClose }) {
           </button>
           {openMenus.dashboard && (
             <div className="sidebar-submenu">
-              <a href="#">Stock Overview</a>
+              <Link to="/dashboard/stock-overview">Stock Overview</Link>
               <a href="#">Purchase Analytics</a>
               <a href="#">Sales Analytics</a>
               <a href="#">Revenue Summary</a>

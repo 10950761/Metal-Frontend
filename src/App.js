@@ -15,6 +15,7 @@ import Stock from './transactionalcomponents/Stock';
 import History from './transactionalcomponents/History';
 import PurchaseHistory from './transactionalcomponents/PurchaseHistory';
 import SalesHistory from './transactionalcomponents/SaleHistory';
+import StockOverview from './dasboardcomponents/StockOverview';
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
         <Route path="history" element={<History setUser={setUser} />} />
         <Route path="purchase-history" element={<PurchaseHistory setUser={setUser} />} />
         <Route path="sales-history" element={<SalesHistory setUser={setUser} />} />
+        <Route path="stock-overview" element={<StockOverview setUser={setUser} />} />
       </Route>
       </Routes>
   );

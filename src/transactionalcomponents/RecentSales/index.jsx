@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
+import API_BASE_URL from "../../api/config";
 
 const RecentSales = () => {
   const [sales, setSales] = useState([]);
@@ -8,60 +9,73 @@ const RecentSales = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
+  fetchSales();
+}, []);
+
+const fetchSales = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${API_BASE_URL}/api/sales`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await res.json();
+    setSales(data);
+    setLoading(false);
+  } catch (error) {
+    console.error("Error fetching sales:", error);
+    setLoading(false);
+  }
+};
+
+const handleDelete = async (id) => {
+  if (!window.confirm("Are you sure you want to delete this sale?")) return;
+  try {
+    const token = localStorage.getItem("token");
+    await fetch(`${API_BASE_URL}/api/sales/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setSales(sales.filter((sale) => sale._id !== id));
+  } catch (error) {
+    console.error("Error deleting sale:", error);
+  }
+};
+
+const handleEdit = (sale) => {
+  setEditingSale({ ...sale });
+};
+
+const handleUpdate = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    await fetch(`${API_BASE_URL}/api/sales/${editingSale._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(editingSale),
+    });
+    setEditingSale(null);
     fetchSales();
-  }, []);
+  } catch (error) {
+    console.error("Error updating sale:", error);
+  }
+};
 
-  const fetchSales = async () => {
-    try {
-      const res = await fetch("http://localhost:5000/api/sales");
-      const data = await res.json();
-      setSales(data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching sales:", error);
-      setLoading(false);
-    }
-  };
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setEditingSale({ ...editingSale, [name]: value });
+};
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this sale?")) return;
-    try {
-      await fetch(`http://localhost:5000/api/sales/${id}`, {
-        method: "DELETE",
-      });
-      setSales(sales.filter((sale) => sale._id !== id));
-    } catch (error) {
-      console.error("Error deleting sale:", error);
-    }
-  };
-
-  const handleEdit = (sale) => {
-    setEditingSale({ ...sale });
-  };
-
-  const handleUpdate = async () => {
-    try {
-      await fetch(`https://metal-backend-1.onrender.com/api/sales/${editingSale._id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(editingSale),
-      });
-      setEditingSale(null);
-      fetchSales();
-    } catch (error) {
-      console.error("Error updating sale:", error);
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEditingSale({ ...editingSale, [name]: value });
-  };
-
-  const filteredSales = sales.filter(sale =>
-    sale.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    sale.productName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+const filteredSales = sales.filter(sale =>
+  sale.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  sale.productName.toLowerCase().includes(searchTerm.toLowerCase())
+);
 
   return (
     <div className="recent-sales-container">

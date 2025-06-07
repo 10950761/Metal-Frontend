@@ -3,6 +3,7 @@ import "./index.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FiEdit, FiTrash2, FiSave, FiX, FiSearch } from "react-icons/fi";
+import API_BASE_URL from "../../api/config";
 
 const RecentPurchases = () => {
   const [purchases, setPurchases] = useState([]);
@@ -10,72 +11,84 @@ const RecentPurchases = () => {
   const [editingPurchase, setEditingPurchase] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
+ useEffect(() => {
+  fetchPurchases();
+}, []);
+
+const fetchPurchases = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${API_BASE_URL}/api/purchases`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await res.json();
+    setPurchases(data);
+    setLoading(false);
+  } catch (error) {
+    console.error("Error fetching purchases:", error);
+    toast.error("Failed to load purchases");
+    setLoading(false);
+  }
+};
+
+const handleEdit = (purchase) => {
+  setEditingPurchase({ ...purchase });
+};
+
+const handleDelete = async (id) => {
+  if (!window.confirm("Are you sure you want to delete this purchase?")) return;
+  try {
+    const token = localStorage.getItem("token");
+    await fetch(`${API_BASE_URL}/api/purchases/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setPurchases(purchases.filter((p) => p._id !== id));
+    toast.success("Purchase deleted successfully!");
+  } catch (error) {
+    console.error("Error deleting purchase:", error);
+    toast.error("Failed to delete purchase");
+  }
+};
+
+const handleUpdate = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    await fetch(
+      `${API_BASE_URL}/api/purchases/${editingPurchase._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(editingPurchase),
+      }
+    );
+    toast.success("Purchase updated successfully!");
+    setEditingPurchase(null);
     fetchPurchases();
-  }, []);
+  } catch (error) {
+    console.error("Error updating purchase:", error);
+    toast.error("Failed to update purchase");
+  }
+};
 
-  const fetchPurchases = async () => {
-    try {
-      const res = await fetch("https://metal-backend-1.onrender.com/api/purchases");
-      const data = await res.json();
-      setPurchases(data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching purchases:", error);
-      toast.error("Failed to load purchases");
-      setLoading(false);
-    }
-  };
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setEditingPurchase({ ...editingPurchase, [name]: value });
+};
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this purchase?"))
-      return;
-    try {
-      await fetch(`http://localhost:5000/api/purchases/${id}`, {
-        method: "DELETE",
-      });
-      setPurchases(purchases.filter((p) => p._id !== id));
-      toast.success("Purchase deleted successfully!");
-    } catch (error) {
-      console.error("Error deleting purchase:", error);
-      toast.error("Failed to delete purchase");
-    }
-  };
-
-  const handleEdit = (purchase) => {
-    setEditingPurchase({ ...purchase });
-  };
-
-  const handleUpdate = async () => {
-    try {
-      await fetch(
-        `http://localhost:5000/api/purchases/${editingPurchase._id}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(editingPurchase),
-        }
-      );
-      toast.success("Purchase updated successfully!");
-      setEditingPurchase(null);
-      fetchPurchases();
-    } catch (error) {
-      console.error("Error updating purchase:", error);
-      toast.error("Failed to update purchase");
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEditingPurchase({ ...editingPurchase, [name]: value });
-  };
-
-  const filteredPurchases = purchases.filter(
-    (purchase) =>
-      purchase.supplierName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      purchase.productName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      purchase.supplierCompany.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+const filteredPurchases = purchases.filter(
+  (purchase) =>
+    purchase.supplierName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    purchase.productName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    purchase.supplierCompany.toLowerCase().includes(searchTerm.toLowerCase())
+);
 
   return (
     <div className="purchases-container">

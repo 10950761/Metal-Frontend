@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './index.css';
+import API_BASE_URL from '../../api/config';
 
 const PurchaseHistory = () => {
   const [history, setHistory] = useState([]);
@@ -8,21 +9,30 @@ const PurchaseHistory = () => {
   const [filter, setFilter] = useState('all'); 
 
   useEffect(() => {
-    const fetchHistory = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/api/purchases');
-        const data = await response.json();
-        setHistory(data);
-      } catch (error) {
-        console.error('Error fetching purchase history:', error);
-        alert('Failed to load purchase history.');
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchHistory = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `${API_BASE_URL}/api/purchases`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await response.json();
+      setHistory(data);
+    } catch (error) {
+      console.error('Error fetching purchase history:', error);
+      alert('Failed to load purchase history.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchHistory();
-  }, []);
+  fetchHistory();
+}, []);
+
 
   const isOlderThanThreeDays = (dateStr) => {
     const recordDate = new Date(dateStr);
@@ -32,28 +42,35 @@ const PurchaseHistory = () => {
   };
 
   const handleDeleteOld = async () => {
-    if (!window.confirm('Are you sure you want to delete all records older than 3 days?')) return;
+  if (!window.confirm('Are you sure you want to delete all records older than 3 days?')) return;
 
-    setDeleting(true);
+  setDeleting(true);
 
-    try {
-      const response = await fetch('https://metal-backend-1.onrender.com/api/purchases/delete-old', {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await fetch(
+      `${API_BASE_URL}/api/purchases/delete-old`,
+      {
         method: 'DELETE',
-      });
-
-      if (response.ok) {
-        setHistory(history.filter(item => !isOlderThanThreeDays(item.date)));
-        alert('Old records deleted successfully.');
-      } else {
-        alert('Failed to delete old records.');
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
-    } catch (error) {
-      console.error('Delete failed:', error);
-      alert('Error deleting records.');
-    } finally {
-      setDeleting(false);
+    );
+
+    if (response.ok) {
+      setHistory(history.filter(item => !isOlderThanThreeDays(item.date)));
+      alert('Old records deleted successfully.');
+    } else {
+      alert('Failed to delete old records.');
     }
-  };
+  } catch (error) {
+    console.error('Delete failed:', error);
+    alert('Error deleting records.');
+  } finally {
+    setDeleting(false);
+  }
+};
 
   const filteredHistory = history.filter(item => {
     if (filter === 'recent') return !isOlderThanThreeDays(item.date);

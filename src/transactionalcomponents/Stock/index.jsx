@@ -1,28 +1,40 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./index.css"; 
+import API_BASE_URL from "../../api/config";
 
 const Stock = () => {
   const [stock, setStock] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchStock = async () => {
-      try {
-        const res = await axios.get("https://metal-backend-1.onrender.com/api/stock");
-        setStock(res.data);
-      } catch (err) {
-        console.error("Stock fetch error:", err);
-        setError("Failed to load stock data");
-      } finally {
-        setLoading(false);
+useEffect(() => {
+  const fetchStock = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      
+      // Add token verification
+      if (!token) {
+        throw new Error('No authentication token found');
       }
-    };
 
-    fetchStock();
-  }, []);
+      const res = await axios.get(`${API_BASE_URL}/api/stock`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
 
+      setStock(res.data);
+    } catch (error) {
+      console.error("Error details:", error.response?.data || error.message);
+      setError(error.response?.data?.message || "Failed to load stock data");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchStock();
+}, []);
   return (
     <div className="stock-container">
       <div className="stock-header">
