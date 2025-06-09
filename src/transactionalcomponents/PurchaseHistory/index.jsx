@@ -7,29 +7,29 @@ const PurchaseHistory = () => {
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState(false);
   const [filter, setFilter] = useState('all'); 
+  const isDeleted = (item) => item.deleted === true;
 
   useEffect(() => {
   const fetchHistory = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await fetch(
-        `${API_BASE_URL}/api/purchases`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const data = await response.json();
-      setHistory(data);
-    } catch (error) {
-      console.error('Error fetching purchase history:', error);
-      alert('Failed to load purchase history.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  try {
+    const token = localStorage.getItem("token");
+    const response = await fetch(
+      `${API_BASE_URL}/api/purchases?history=true`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await response.json();
+    setHistory(data);
+  } catch (error) {
+    console.error('Error fetching purchase history:', error);
+    alert('Failed to load purchase history.');
+  } finally {
+    setLoading(false);
+  }
+};
   fetchHistory();
 }, []);
 
@@ -40,18 +40,16 @@ const PurchaseHistory = () => {
     threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
     return recordDate < threeDaysAgo;
   };
-
-  const handleDeleteOld = async () => {
-  if (!window.confirm('Are you sure you want to delete all records older than 3 days?')) return;
+const handleDeleteOld = async () => {
+  if (!window.confirm('Are you sure you want to permanently delete records older than 3 days?')) return;
 
   setDeleting(true);
-
   try {
     const token = localStorage.getItem("token");
     const response = await fetch(
-      `${API_BASE_URL}/api/purchases/delete-old`,
+      `${API_BASE_URL}/api/purchases/old`,
       {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -59,7 +57,11 @@ const PurchaseHistory = () => {
     );
 
     if (response.ok) {
-      setHistory(history.filter(item => !isOlderThanThreeDays(item.date)));
+      const threeDaysAgo = new Date();
+      threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
+      setHistory(prev => prev.filter(item => 
+        !item.deleted || new Date(item.deletedAt) >= threeDaysAgo
+      ));
       alert('Old records deleted successfully.');
     } else {
       alert('Failed to delete old records.');
@@ -142,8 +144,8 @@ const PurchaseHistory = () => {
                 <th>Product</th>
                 <th>Quantity</th>
                 <th>Unit Price</th>
-                <th>Total</th>
                 <th>Notes</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
@@ -158,8 +160,8 @@ const PurchaseHistory = () => {
                   <td>{item.productName}</td>
                   <td>{item.productQuantity}</td>
                   <td>${parseFloat(item.price).toFixed(2)}</td>
-                  <td>${(parseFloat(item.price) * parseInt(item.productQuantity)).toFixed(2)}</td>
                   <td className="notes-cell">{item.notes || '-'}</td>
+                  <td>{isDeleted(item) ? "Deleted" : "Active"}</td>
                 </tr>
               ))}
             </tbody>

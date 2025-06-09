@@ -42,7 +42,7 @@ const handleDelete = async (id) => {
   try {
     const token = localStorage.getItem("token");
     await fetch(`${API_BASE_URL}/api/purchases/${id}`, {
-      method: "DELETE",
+      method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
       },

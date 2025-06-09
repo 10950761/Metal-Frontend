@@ -1,0 +1,304 @@
+/* src/pages/index.css */
+.stock-charts-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.charts-container {
+  max-width: 1200px;
+  width: 60%;
+  margin: 0 auto;
+  padding: 2rem;
+  height: 100%;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.charts-container h2 {
+  text-align: center;
+  color: #a20cdd;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.5px;
+}
+
+.chart-section {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.chart-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 20px 20px 0 0;
+}
+
+.chart-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.chart-section h3 {
+  color: #2c3e50;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.chart-section h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 2px;
+}
+
+/* Responsive Container Styling */
+.recharts-wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Custom Tooltip Styling */
+.recharts-tooltip-wrapper {
+  border-radius: 12px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+.recharts-default-tooltip {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+  padding: 12px 16px !important;
+}
+
+.recharts-tooltip-label {
+  color: #2c3e50 !important;
+  font-weight: 600 !important;
+  margin-bottom: 8px !important;
+}
+
+.recharts-tooltip-item {
+  color: #34495e !important;
+  font-weight: 500 !important;
+}
+
+/* Legend Styling */
+.recharts-legend-wrapper {
+  padding-top: 20px !important;
+}
+
+.recharts-legend-item {
+  margin-right: 20px !important;
+}
+
+.recharts-legend-item-text {
+  color: #2c3e50 !important;
+  font-weight: 500 !important;
+}
+
+/* Axis Styling */
+.recharts-cartesian-axis-tick-value {
+  fill: #5a6c7d !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: rgba(0, 0, 0, 0.1) !important;
+  stroke-dasharray: 5 5 !important;
+}
+
+/* Bar Chart Specific Styling */
+.recharts-bar-rectangle {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.recharts-bar-rectangle:hover {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+  transition: filter 0.3s ease;
+}
+
+/* Line Chart Specific Styling */
+.recharts-line-curve {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  stroke-width: 3px !important;
+}
+
+.recharts-line-dot {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  stroke-width: 2px !important;
+}
+
+.recharts-line-dot:hover {
+  r: 6 !important;
+  transition: r 0.3s ease;
+}
+
+/* Pie Chart Specific Styling */
+.recharts-pie-sector {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.recharts-pie-sector:hover {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+  transform: scale(1.02);
+  transform-origin: center;
+  transition: all 0.3s ease;
+}
+
+.recharts-pie-label-text {
+  fill: #2c3e50 !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+}
+
+/* Loading Animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.chart-loading {
+  height: 300px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 12px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .charts-container {
+    padding: 1rem;
+  }
+
+  .charts-container h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .chart-section {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 16px;
+  }
+
+  .chart-section h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .charts-container {
+    padding: 0.5rem;
+  }
+
+  .charts-container h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .chart-section {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+  }
+
+  .chart-section h3 {
+    font-size: 1.125rem;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .charts-container {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  }
+
+  .chart-section {
+    background: rgba(44, 62, 80, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .chart-section h3 {
+    color: #ecf0f1;
+  }
+
+  .recharts-cartesian-axis-tick-value {
+    fill: #bdc3c7 !important;
+  }
+
+  .recharts-legend-item-text {
+    color: #ecf0f1 !important;
+  }
+
+  .recharts-tooltip-label {
+    color: #ecf0f1 !important;
+  }
+
+  .recharts-tooltip-item {
+    color: #bdc3c7 !important;
+  }
+
+  .recharts-pie-label-text {
+    fill: #ecf0f1 !important;
+  }
+}
+
+/* Smooth Transitions */
+* {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom Scrollbar */
+.charts-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.charts-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.charts-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.charts-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}

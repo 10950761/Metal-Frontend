@@ -78,13 +78,13 @@ function Sidebar({ isOpen, onClose }) {
             className="sidebar-toggle"
           >
             <span>
-              <FaTachometerAlt /> Dashboard
+              <FaTachometerAlt /> Overviews
             </span>
             {openMenus.dashboard ? <FaChevronUp /> : <FaChevronDown />}
           </button>
           {openMenus.dashboard && (
             <div className="sidebar-submenu">
-              <Link to="/dashboard/stock-overview">Stock Overview</Link>
+              <Link to="/dashboard/stock-summary">Stock Overview</Link>
               <a href="#">Purchase Analytics</a>
               <a href="#">Sales Analytics</a>
               <a href="#">Revenue Summary</a>

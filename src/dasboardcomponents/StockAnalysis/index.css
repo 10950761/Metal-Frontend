@@ -1,0 +1,375 @@
+/* Stock Analysis Component Styles */
+.stock-analysis-container {
+  padding: 24px;
+  background-color: #f8fafc;
+  min-height: 100vh;
+  width: 90%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Filters Section */
+.filters-container {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 24px;
+  border: 1px solid #e2e8f0;
+}
+
+.search-input-container {
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+}
+
+.search-input-container input {
+  width: 100%;
+  padding: 12px 16px 12px 44px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  background-color: #fafafa;
+}
+
+.search-input-container input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.search-input-container input::placeholder {
+  color: #94a3b8;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: #64748b;
+  pointer-events: none;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.export-button,
+.print-button,.view-button{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: white;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.export-button:hover,
+.print-button:hover, .view-button {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.export-button:active,
+.print-button:active,
+.view-button:active {
+  transform: translateY(0);
+}
+
+.view-button{
+  background-color: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+  transition: all 0.2s ease;
+  margin-left: 500px;
+  border-radius: 50px;
+}
+
+.button-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Table Container */
+.table-container {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+}
+
+.stock-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.stock-table thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.stock-table thead th {
+  padding: 16px 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.stock-table tbody tr {
+  border-bottom: 1px solid #f1f5f9;
+  transition: background-color 0.2s ease;
+}
+
+.stock-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.stock-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.stock-table tbody td {
+  padding: 14px 12px;
+  color: #374151;
+  vertical-align: middle;
+}
+
+.stock-table tbody td:first-child {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Status Styles */
+.stock-table tbody td:nth-child(5) {
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Status colors based on text content */
+.stock-table tbody tr:has(td:nth-child(5):contains("Out of Stock")) td:nth-child(5) {
+  color: #dc2626;
+}
+
+.stock-table tbody tr:has(td:nth-child(5):contains("Low Stock")) td:nth-child(5) {
+  color: #f59e0b;
+}
+
+.stock-table tbody tr:has(td:nth-child(5):contains("In Stock")) td:nth-child(5) {
+  color: #10b981;
+}
+
+/* Alternative status styling using pseudo-selectors */
+.stock-table tbody td:nth-child(5) {
+  position: relative;
+}
+
+.stock-table tbody td:nth-child(5)::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+  background-color: #10b981; /* Default green for "In Stock" */
+}
+
+/* Action Buttons in Table */
+.stock-table tbody td:last-child {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 6px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.edit-btn {
+  color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.edit-btn:hover {
+  background-color: #3b82f6;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.delete-btn {
+  color: #dc2626;
+  border-color: #dc2626;
+}
+
+.delete-btn:hover {
+  background-color: #dc2626;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+}
+
+/* Empty State */
+.empty-state {
+  background: white;
+  border-radius: 12px;
+  padding: 60px 20px;
+  text-align: center;
+  border: 2px dashed #e2e8f0;
+  color: #64748b;
+}
+
+.empty-state p {
+  font-size: 16px;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .stock-analysis-container {
+    padding: 16px;
+  }
+  
+  .table-container {
+    overflow-x: auto;
+  }
+  
+  .stock-table {
+    min-width: 800px;
+  }
+}
+
+@media (max-width: 768px) {
+  .stock-analysis-container {
+    padding: 12px;
+  }
+  
+  .filters-container {
+    padding: 16px;
+  }
+  
+  .search-input-container {
+    max-width: 100%;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .export-button,
+  .print-button {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .stock-table thead th {
+    padding: 12px 8px;
+    font-size: 11px;
+  }
+  
+  .stock-table tbody td {
+    padding: 10px 8px;
+    font-size: 13px;
+  }
+  
+  .stock-table tbody td:last-child {
+    flex-direction: column;
+    gap: 4px;
+    align-items: stretch;
+  }
+  
+  .edit-btn,
+  .delete-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .stock-table {
+    min-width: 600px;
+  }
+  
+  .stock-table thead th,
+  .stock-table tbody td {
+    padding: 8px 6px;
+    font-size: 12px;
+  }
+  
+  .empty-state {
+    padding: 40px 16px;
+  }
+}
+
+/* Loading Animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.loading-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Utility Classes */
+.text-success {
+  color: #10b981 !important;
+}
+
+.text-warning {
+  color: #f59e0b !important;
+}
+
+.text-danger {
+  color: #dc2626 !important;
+}
+
+.bg-success {
+  background-color: #dcfdf7 !important;
+}
+
+.bg-warning {
+  background-color: #fef3c7 !important;
+}
+
+.bg-danger {
+  background-color: #fee2e2 !important;
+}

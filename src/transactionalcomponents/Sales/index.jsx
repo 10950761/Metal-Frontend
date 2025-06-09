@@ -11,7 +11,6 @@ const Sales = () => {
     productName: '',
     price: '',
     quantity: '',
-    totalPrice: ''
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -23,11 +22,6 @@ const Sales = () => {
       ...formData,
       [name]: value
     };
-
-    // Automatically update totalPrice
-    const price = parseFloat(updatedForm.price) || 0;
-    const quantity = parseFloat(updatedForm.quantity) || 0;
-    updatedForm.totalPrice = (price * quantity).toFixed(2); 
 
     setFormData(updatedForm);
   };
@@ -60,7 +54,6 @@ const Sales = () => {
           productName: '',
           price: '',
           quantity: '',
-          totalPrice: ''
         });
         setTimeout(() => setSubmitSuccess(false), 3000);
       } else {
@@ -107,18 +100,6 @@ const Sales = () => {
             />
           </div>
         ))}
-
-        {/* Display total price (readonly) */}
-        <div className="sales-form-group">
-          <label className="sales-label">Total Price (GHS)</label>
-          <input
-            type="text"
-            value={formData.totalPrice}
-            className="sales-input"
-            readOnly
-          />
-        </div>
-
         <div className="sales-button-container">
           <button type="submit" className="sales-button" disabled={isSubmitting}>
             {isSubmitting ? 'Processing...' : 'Submit Sale'}

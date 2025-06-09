@@ -1,15 +1,5 @@
-:root {
-  --primary: #005288;
-  --secondary: #0077cc;
-  --light-bg: #f5f7fa;
-  --text: #0c0a0a;
-  --accent: #00a0e9;
-  --dark-text: #030303;
-  --transition: all 0.3s ease;
-}
-
-body {
-  font-family: 'Segoe UI', sans-serif;
+html, body {
+  height: 100%;
   margin: 0;
-  background-color: var(--light-bg);
+  padding: 0;
 }

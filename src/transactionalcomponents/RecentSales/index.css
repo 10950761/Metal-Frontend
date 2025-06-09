@@ -13,7 +13,7 @@
 }
 
 .recent-sales-container {
-  width: 98%;
+  width: 90%;
   max-width: 1400px;
   margin: 2rem auto;
   padding: 2rem;
@@ -46,7 +46,7 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 60px;
+  width: 50px;
   height: 4px;
   background: var(--primary-color);
   border-radius: 2px;
@@ -59,12 +59,14 @@
 
 .search-container {
   position: relative;
-  min-width: 250px;
+  min-width: 50px;
+  max-width: 300px;
+  width:auto;
 }
 
 .search-input {
-  width: 100%;
-  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  width: 50%;
+  padding: 0.75rem 1rem 0.75rem 0.5rem;
   border: 1px solid var(--border-color);
   border-radius: 8px;
   font-size: 0.95rem;
@@ -217,7 +219,7 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
   .recent-sales-container {
     padding: 1.5rem;
   }

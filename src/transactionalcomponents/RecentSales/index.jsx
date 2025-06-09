@@ -9,10 +9,10 @@ const RecentSales = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-  fetchSales();
-}, []);
+    fetchSales();
+  }, []);
 
-const fetchSales = async () => {
+  const fetchSales = async () => {
   try {
     const token = localStorage.getItem("token");
     const res = await fetch(`${API_BASE_URL}/api/sales`, {
@@ -20,8 +20,14 @@ const fetchSales = async () => {
         Authorization: `Bearer ${token}`,
       },
     });
+    
+    if (!res.ok) {
+      throw new Error('Failed to fetch sales');
+    }
+    
     const data = await res.json();
-    setSales(data);
+    const nonDeletedSales = data.filter(sale => !sale.deleted);
+    setSales(nonDeletedSales);
     setLoading(false);
   } catch (error) {
     console.error("Error fetching sales:", error);
@@ -29,53 +35,68 @@ const fetchSales = async () => {
   }
 };
 
-const handleDelete = async (id) => {
+ const handleDelete = async (saleId) => {
   if (!window.confirm("Are you sure you want to delete this sale?")) return;
+
   try {
     const token = localStorage.getItem("token");
-    await fetch(`${API_BASE_URL}/api/sales/${id}`, {
-      method: "DELETE",
+    const response = await fetch(`${API_BASE_URL}/api/sales/${saleId}`, {  
+      method: "PATCH", 
       headers: {
         Authorization: `Bearer ${token}`,
-      },
-    });
-    setSales(sales.filter((sale) => sale._id !== id));
-  } catch (error) {
-    console.error("Error deleting sale:", error);
-  }
-};
-
-const handleEdit = (sale) => {
-  setEditingSale({ ...sale });
-};
-
-const handleUpdate = async () => {
-  try {
-    const token = localStorage.getItem("token");
-    await fetch(`${API_BASE_URL}/api/sales/${editingSale._id}`, {
-      method: "PUT",
-      headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(editingSale),
+      body: JSON.stringify({ 
+        deleted: true,
+        deletedAt: new Date().toISOString() 
+      }),
     });
-    setEditingSale(null);
-    fetchSales();
+
+    if (response.ok) {
+      setSales(prevSales => prevSales.filter(item => item._id !== saleId));
+      alert("Sale deleted successfully.");
+    } else {
+      const errorData = await response.json(); 
+      alert(errorData.message || "Failed to delete sale.");
+    }
   } catch (error) {
-    console.error("Error updating sale:", error);
+    console.error("Soft delete error:", error);
+    alert("An error occurred while deleting the sale.");
+    fetchSales();
   }
 };
+  const handleEdit = (sale) => {
+    setEditingSale({ ...sale });
+  };
 
-const handleChange = (e) => {
-  const { name, value } = e.target;
-  setEditingSale({ ...editingSale, [name]: value });
-};
+  const handleUpdate = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await fetch(`${API_BASE_URL}/api/sales/${editingSale._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(editingSale),
+      });
+      setEditingSale(null);
+      fetchSales();
+    } catch (error) {
+      console.error("Error updating sale:", error);
+    }
+  };
 
-const filteredSales = sales.filter(sale =>
-  sale.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  sale.productName.toLowerCase().includes(searchTerm.toLowerCase())
-);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEditingSale({ ...editingSale, [name]: value });
+  };
+
+  const filteredSales = sales.filter(
+    (sale) =>
+      sale.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      sale.productName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="recent-sales-container">
@@ -102,7 +123,9 @@ const filteredSales = sales.filter(sale =>
         </div>
       ) : filteredSales.length === 0 ? (
         <div className="empty-state">
-          <p>{searchTerm ? "No matching sales found" : "No sales recorded yet"}</p>
+          <p>
+            {searchTerm ? "No matching sales found" : "No sales recorded yet"}
+          </p>
         </div>
       ) : (
         <div className="table-responsive">
@@ -115,13 +138,15 @@ const filteredSales = sales.filter(sale =>
                 <th>Product</th>
                 <th>Price (GHS)</th>
                 <th>Qty</th>
-                <th>Total (GHS)</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {filteredSales.map((sale) => (
-                <tr key={sale._id} className={editingSale?._id === sale._id ? "editing-row" : ""}>
+                <tr
+                  key={sale._id}
+                  className={editingSale?._id === sale._id ? "editing-row" : ""}
+                >
                   {editingSale?._id === sale._id ? (
                     <>
                       <td>
@@ -174,8 +199,8 @@ const filteredSales = sales.filter(sale =>
                         <button onClick={handleUpdate} className="save-btn">
                           Save
                         </button>
-                        <button 
-                          onClick={() => setEditingSale(null)} 
+                        <button
+                          onClick={() => setEditingSale(null)}
                           className="cancel-btn"
                         >
                           Cancel
@@ -190,16 +215,15 @@ const filteredSales = sales.filter(sale =>
                       <td>{sale.productName}</td>
                       <td>{parseFloat(sale.price).toFixed(2)}</td>
                       <td>{sale.quantity}</td>
-                      <td>{parseFloat(sale.totalPrice).toFixed(2)}</td>
                       <td className="action-buttons">
-                        <button 
-                          onClick={() => handleEdit(sale)} 
+                        <button
+                          onClick={() => handleEdit(sale)}
                           className="edit-btn"
                         >
                           Edit
                         </button>
-                        <button 
-                          onClick={() => handleDelete(sale._id)} 
+                        <button
+                          onClick={() => handleDelete(sale._id)}
                           className="delete-btn"
                         >
                           Delete
