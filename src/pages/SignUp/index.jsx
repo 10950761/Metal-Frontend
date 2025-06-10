@@ -4,12 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./index.css";
 import axios from "axios";
-import API_BASE_URL from "../../api/config"; 
+import API_BASE_URL from "../../api/config";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-
 
   // State to hold form data
   const [formData, setFormData] = useState({
@@ -128,11 +127,41 @@ const SignUp = () => {
 
                 <div className="google-signup">
                   <GoogleLogin
-                    onSuccess={(credentialResponse) => {
-                      console.log(credentialResponse);
+                    onSuccess={async (credentialResponse) => {
+                      try {
+                        const token = credentialResponse.credential;
+                        console.log("Google token received:", token);
+
+                        const response = await axios.post(
+                          `${API_BASE_URL}/api/users/google-login`,
+                          { token },
+                          {
+                            headers: {
+                              "Content-Type": "application/json",
+                            },
+                          }
+                        );
+
+                        console.log("Login response:", response.data);
+
+                        if (response.data.success) {
+                          localStorage.setItem(
+                            "user",
+                            JSON.stringify(response.data.user)
+                          );
+                          localStorage.setItem("token", response.data.token);
+                          navigate("/dashboard");
+                        } else {
+                          throw new Error(response.data.message);
+                        }
+                      } catch (error) {
+                        console.error("Login failed:", error);
+                        alert(error.message || "Google login failed");
+                      }
                     }}
                     onError={() => {
-                      alert("Google Sign Up Failed");
+                      console.error("Google sign in failed");
+                      alert("Could not initialize Google sign in");
                     }}
                   />
                 </div>
