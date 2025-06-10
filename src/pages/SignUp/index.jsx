@@ -138,7 +138,9 @@ const SignUp = () => {
                           {
                             headers: {
                               "Content-Type": "application/json",
+                              Accept: "application/json",
                             },
+                            withCredentials: true,
                           }
                         );
 
