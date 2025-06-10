@@ -130,7 +130,6 @@ const SignUp = () => {
                   <GoogleLogin
                     onSuccess={(credentialResponse) => {
                       console.log(credentialResponse);
-                      // Handle sending to backend or decoding token
                     }}
                     onError={() => {
                       alert("Google Sign Up Failed");

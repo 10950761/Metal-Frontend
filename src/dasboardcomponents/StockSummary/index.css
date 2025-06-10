@@ -237,7 +237,7 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .stock-overview-container {
-    padding: 1.5rem;
+    padding: 1rem;
   }
 
   .stock-header h1 {
@@ -249,7 +249,7 @@
   }
 
   .summary-cards-container {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr; /* Consolidated here */
     gap: 1rem;
     margin-bottom: 2rem;
   }
@@ -285,41 +285,6 @@
   }
 }
 
-@media (max-width: 480px) {
-  .stock-overview-container {
-    padding: 1rem;
-  }
-
-  .stock-header {
-    margin-bottom: 2rem;
-  }
-
-  .stock-header h1 {
-    font-size: 1.75rem;
-  }
-
-  .summary-card {
-    padding: 1.25rem;
-  }
-
-  .card-content {
-    gap: 0.75rem;
-  }
-
-  .card-value {
-    font-size: 1.5rem;
-  }
-
-  .card-icon {
-    width: 45px;
-    height: 45px;
-  }
-
-  .summary-icon {
-    width: 20px;
-    height: 20px;
-  }
-}
 
 /* Loading State (Optional) */
 .summary-card.loading {
