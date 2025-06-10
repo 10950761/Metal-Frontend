@@ -46,6 +46,7 @@ const StockCharts = () => {
   }, []);
 
   return (
+    <div className="stock-charts-container">
     <div className="charts-container">
       <h2>Stock Visualization</h2>
 
@@ -102,6 +103,7 @@ const StockCharts = () => {
           </PieChart>
         </ResponsiveContainer>
       </div>
+    </div>
     </div>
   );
 };

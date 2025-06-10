@@ -4,25 +4,25 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  background-color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 1rem;
+  width: 80%;
 }
 
 .charts-container {
+  width: 90%;
   max-width: 1200px;
-  width: 60%;
   margin: 0 auto;
   padding: 2rem;
-  height: 100%;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
 }
 
 .charts-container h2 {
   text-align: center;
   color: #a20cdd;
-  font-size: 2.5rem;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
   font-weight: 700;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   letter-spacing: -0.5px;
 }
@@ -31,8 +31,8 @@
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   border-radius: 20px;
-  padding: 2rem;
-  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -58,9 +58,9 @@
 
 .chart-section h3 {
   color: #2c3e50;
-  font-size: 1.5rem;
+  font-size: clamp(1.125rem, 4vw, 1.5rem);
   font-weight: 600;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   text-align: center;
   position: relative;
   padding-bottom: 0.5rem;
@@ -82,6 +82,8 @@
 .recharts-wrapper {
   border-radius: 12px;
   overflow: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
 /* Custom Tooltip Styling */
@@ -112,22 +114,26 @@
 
 /* Legend Styling */
 .recharts-legend-wrapper {
-  padding-top: 20px !important;
+  padding-top: 1rem !important;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .recharts-legend-item {
-  margin-right: 20px !important;
+  margin: 0.5rem !important;
 }
 
 .recharts-legend-item-text {
   color: #2c3e50 !important;
   font-weight: 500 !important;
+  font-size: clamp(0.75rem, 3vw, 0.875rem);
 }
 
 /* Axis Styling */
 .recharts-cartesian-axis-tick-value {
   fill: #5a6c7d !important;
-  font-size: 12px !important;
+  font-size: clamp(0.7rem, 2.5vw, 0.85rem) !important;
   font-weight: 500 !important;
 }
 
@@ -178,7 +184,7 @@
 .recharts-pie-label-text {
   fill: #2c3e50 !important;
   font-weight: 600 !important;
-  font-size: 12px !important;
+  font-size: clamp(0.7rem, 2.5vw, 0.85rem) !important;
 }
 
 /* Loading Animation */
@@ -192,61 +198,106 @@
 }
 
 .chart-loading {
-  height: 300px;
+  height: 250px;
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200px 100%;
   animation: shimmer 1.5s infinite;
   border-radius: 12px;
+  width: 100%;
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .charts-container {
-    padding: 1rem;
-  }
-
-  .charts-container h2 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
+    width: 95%;
+    padding: 1.5rem;
   }
 
   .chart-section {
-    padding: 1.5rem;
+    padding: 1.25rem;
     margin-bottom: 1.5rem;
     border-radius: 16px;
   }
 
-  .chart-section h3 {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
+  .recharts-wrapper {
+    height: auto !important; /* Ensure charts resize dynamically */
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
+  .stock-charts-container {
+    padding: 0.75rem;
+  }
+
   .charts-container {
-    padding: 0.5rem;
+    width: 100%;
+    padding: 1rem;
   }
 
   .charts-container h2 {
-    font-size: 1.75rem;
     margin-bottom: 1.5rem;
   }
 
   .chart-section {
     padding: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
     border-radius: 12px;
   }
 
   .chart-section h3 {
-    font-size: 1.125rem;
+    margin-bottom: 1rem;
+  }
+
+  .recharts-legend-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .recharts-legend-item {
+    margin: 0.25rem 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .stock-charts-container {
+    padding: 0.5rem;
+  }
+
+  .charts-container {
+    padding: 0.75rem;
+  }
+
+  .charts-container h2 {
+    margin-bottom: 1rem;
+  }
+
+  .chart-section {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+  }
+
+  .chart-section h3::after {
+    width: 40px;
+  }
+
+  .chart-loading {
+    height: 200px;
+  }
+
+  .recharts-wrapper {
+    min-height: 200px; /* Prevent charts from collapsing */
   }
 }
 
 /* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
-  .charts-container {
+  .stock-charts-container {
     background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  }
+
+  .charts-container {
+    background: transparent;
   }
 
   .chart-section {
@@ -277,6 +328,10 @@
   .recharts-pie-label-text {
     fill: #ecf0f1 !important;
   }
+
+  .chart-loading {
+    background: linear-gradient(90deg, #34495e 25%, #2c3e50 50%, #34495e 75%);
+  }
 }
 
 /* Smooth Transitions */
@@ -286,7 +341,7 @@
 
 /* Custom Scrollbar */
 .charts-container::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 .charts-container::-webkit-scrollbar-track {
