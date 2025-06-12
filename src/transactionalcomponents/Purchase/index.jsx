@@ -45,12 +45,22 @@ const Purchase = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
+    if (!formData.productName.trim()) {
+      toast.error("Product name is required.");
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const response = await fetch(`${API_BASE_URL}/api/purchases`, {
         method: "POST",
         headers: getAuthHeaders(),
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          productQuantity: Number(formData.productQuantity), 
+          price: Number(formData.price), 
+        }),
       });
 
       const data = await response.json();

@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import {
-  FaBell,
-  FaSearch,
-  FaUserCircle,
-  FaBars,
-  FaTimes,
-} from "react-icons/fa";
+import { FaSearch, FaUserCircle, FaBars, FaTimes, } from "react-icons/fa";
+import NotificationBell from "../../topcomponents/Notification";
 import "./index.css";
 
 const Navbar = ({ toggleSidebar }) => {
@@ -103,8 +98,7 @@ const Navbar = ({ toggleSidebar }) => {
         </div>
 
         <div className="icon-wrapper notification-bell">
-          <FaBell />
-          <span className="notification-badge">*</span>
+          <NotificationBell />
         </div>
 
         <div className="user-profile">
