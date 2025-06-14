@@ -55,6 +55,8 @@ const Sales = () => {
           price: '',
           quantity: '',
         });
+
+        window.dispatchEvent(new Event('bellUpdated'));
         setTimeout(() => setSubmitSuccess(false), 3000);
       } else {
         alert(data.message || 'Failed to record sale. Please try again.');
@@ -72,7 +74,7 @@ const Sales = () => {
     { label: 'Customer Number', name: 'customerNumber', type: 'tel', required: true },
     { label: 'Date', name: 'date', type: 'date', required: true },
     { label: 'Time', name: 'time', type: 'time', required: true },
-    { label: 'Metal Name', name: 'productName', required: true },
+    { label: 'Product Name', name: 'productName', required: true },
     { label: 'Price (GHS)', name: 'price', type: 'number', min: 0, step: "0.01", required: true },
     { label: 'Quantity', name: 'quantity', type: 'text', min: 0, step: "0.001", required: true },
   ];
