@@ -45,10 +45,10 @@ function Sidebar({ isOpen, onClose }) {
     }
   };
 
-   const logout = () => {
+  const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
-    setUser(null);  // clear user state
+    setUser(null);
     navigate("/login");
   };
   // Get last login time from localStorage
@@ -84,10 +84,10 @@ function Sidebar({ isOpen, onClose }) {
           </button>
           {openMenus.dashboard && (
             <div className="sidebar-submenu">
-              <Link to="/dashboard/stock-summary">Stock Overview</Link>
+              <Link to="/dashboard/stock-summary" onClick={onClose}>Stock Overview</Link>
               <a href="#">Purchase Analytics</a>
               <a href="#">Sales Analytics</a>
-              <a href="#">Revenue Summary</a>
+              <Link to = "/dashboard/revenue-summary" onClick={onClose}>Revenue Summary</Link>
             </div>
           )}
         </div>
@@ -105,12 +105,12 @@ function Sidebar({ isOpen, onClose }) {
           </button>
           {openMenus.transactions && (
             <div className="sidebar-submenu">
-              <Link to="/dashboard/sales">Sales</Link>
-              <Link to = "/dashboard/recent-sales">Recent Sales</Link>
-              <Link to="/dashboard/purchases">Purchases</Link>
-             <Link to = "/dashboard/recent-purchases"> Recent Purchases </Link>
-             <Link to ="/dashboard/stock">Stock</Link>
-              <Link to = "/dashboard/history">Sales/Purchase History</Link>
+              <Link to="/dashboard/sales" onClick={onClose}>Sales</Link>
+              <Link to="/dashboard/recent-sales" onClick={onClose}>Recent Sales</Link>
+              <Link to="/dashboard/purchases" onClick={onClose}>Purchases</Link>
+              <Link to="/dashboard/recent-purchases" onClick={onClose}> Recent Purchases </Link>
+              <Link to="/dashboard/stock" onClick={onClose}>Stock</Link>
+              <Link to="/dashboard/history" onClick={onClose}>Sales/Purchase History</Link>
             </div>
           )}
         </div>
@@ -128,15 +128,20 @@ function Sidebar({ isOpen, onClose }) {
           </button>
           {openMenus.settings && (
             <div className="sidebar-submenu">
-              <a href="#">
+              <Link to="/dashboard/profile" className="nav-link" onClick={onClose}>
                 <FaUser /> Profile Details
+              </Link>
+              <a href="#">
+                {" "}
+                <FaCog />
+                Change Password
               </a>
-              <a href="#"> <FaCog />Change Password</a>
               <a href="#">
                 <FaBell /> Notification Preferences
               </a>
               <button className="sidebar-link" onClick={toggleDarkMode}>
-                {darkMode ? <FaSun /> : <FaMoon />} Dark/Light Mode
+                {darkMode ? <FaSun /> : <FaMoon />}
+                {darkMode ? "Light Mode" : "Dark Mode"}
               </button>
             </div>
           )}

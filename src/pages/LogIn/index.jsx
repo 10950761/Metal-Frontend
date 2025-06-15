@@ -29,6 +29,8 @@ const Login = () => {
 
       localStorage.setItem("token", res.data.user.token);
       localStorage.setItem("username", res.data.user.username);
+      localStorage.setItem("email", res.data.user.email);
+      console.log("Stored email after normal login:", localStorage.getItem("email"));
 
       setUser(null);
       navigate("/dashboard");
@@ -107,55 +109,48 @@ const Login = () => {
 
                   <button type="submit">Login</button>
 
-                  <div className="google-signup">
+                  <div class = "google-signup">
                     <GoogleLogin
                       onSuccess={async (credentialResponse) => {
                         try {
-                          console.log(
-                            "Google credential response:",
-                            credentialResponse
-                          );
                           const token = credentialResponse.credential;
+                          console.log("Google token received:", token);
 
-                          // Debug: Log the API call details
-                          console.log(
-                            "Making request to:",
-                            `${API_BASE_URL}/api/users/google-login`
-                          );
-                          console.log("With token:", token);
-
-                          const res = await axios.post(
+                          const response = await axios.post(
                             `${API_BASE_URL}/api/users/google-login`,
                             { token },
                             {
                               headers: {
                                 "Content-Type": "application/json",
+                                Accept: "application/json",
                               },
+                              withCredentials: true,
                             }
                           );
 
-                          console.log("Google login response:", res.data);
+                          console.log("Login response:", response.data);
 
-                          localStorage.setItem(
-                            "user",
-                            JSON.stringify(res.data.user)
-                          );
-                          localStorage.setItem("token", res.data.token);
-                          navigate("/dashboard");
+                          if (response.data.success) {
+                            const { user, token } = response.data;
+
+                            localStorage.setItem("user", JSON.stringify(user));
+                            localStorage.setItem("token", token);
+                            localStorage.setItem("username", user.username);
+                            localStorage.setItem("email", user.email);
+                            console.log("Stored email after normal login:", localStorage.getItem("email"));
+
+                            navigate("/dashboard");
+                          } else {
+                            throw new Error(response.data.message);
+                          }
                         } catch (error) {
-                          console.error("Full error object:", error);
-                          console.error("Error response:", error.response);
-                          alert(
-                            error.response?.data?.message ||
-                              error.response?.data?.error ||
-                              error.message ||
-                              "Google login failed"
-                          );
+                          console.error("Login failed:", error);
+                          alert(error.message || "Google login failed");
                         }
                       }}
                       onError={() => {
-                        console.error("Google login component error");
-                        alert("Failed to initialize Google login");
+                        console.error("Google sign in failed");
+                        alert("Could not initialize Google sign in");
                       }}
                     />
                   </div>
