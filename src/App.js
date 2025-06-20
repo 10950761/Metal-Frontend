@@ -20,6 +20,9 @@ import StockSummary from './dasboardcomponents/StockSummary';
 import StockAnalysis from './dasboardcomponents/StockAnalysis';
 import StockCharts from './dasboardcomponents/StockCharts';
 import RevenueSummary from './dasboardcomponents/RevenueSummary';
+import PurchaseAnalysis from './dasboardcomponents/PuchasesAnalysis';
+import SalesAnalysis from './dasboardcomponents/SalesAnalysis';
+
 
 
 function App() {
@@ -54,7 +57,9 @@ function App() {
           <Route path="stock-analysis" element={<StockAnalysis setUser={setUser} darkMode={darkMode} />} />
           <Route path="stock-charts" element={<StockCharts setUser={setUser} darkMode={darkMode} />} />
           <Route path= "profile"  element = {<ProfileDetails setUser= {setUser} darkMode ={darkMode} />} />
-          <Route path = "revenue-summary" element = {<RevenueSummary setUser ={setUser} darkMode = {darkMode} />} />
+          <Route path="revenue-summary" element = {<RevenueSummary setUser ={setUser} darkMode = {darkMode} />} />
+          <Route path= "purchase-analysis" element = {<PurchaseAnalysis setUser = {setUser} darkMode = {darkMode} />} />
+          <Route path= "sales-analysis" element = {<SalesAnalysis setUser = {setUser} darkMode ={darkMode} />} />
          </Route>
       </Routes>
     </div>

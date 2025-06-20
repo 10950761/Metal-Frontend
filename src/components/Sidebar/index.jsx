@@ -85,8 +85,8 @@ function Sidebar({ isOpen, onClose }) {
           {openMenus.dashboard && (
             <div className="sidebar-submenu">
               <Link to="/dashboard/stock-summary" onClick={onClose}>Stock Overview</Link>
-              <a href="#">Purchase Analytics</a>
-              <a href="#">Sales Analytics</a>
+              <Link to ="/dashboard/purchase-analysis" onClick={onClose}>Purchase Analytics</Link>
+              <Link to = "/dashboard/sales-analysis" onClick={onClose}> Sales Analytics </Link>
               <Link to = "/dashboard/revenue-summary" onClick={onClose}>Revenue Summary</Link>
             </div>
           )}
