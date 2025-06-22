@@ -1,7 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { BarChart3, Package, TrendingUp, DollarSign, ChevronRight, User, LogIn } from 'lucide-react';
-import './index.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  BarChart3,
+  Package,
+  TrendingUp,
+  DollarSign,
+  ChevronRight,
+  User,
+  LogIn,
+} from "lucide-react";
+import "./index.css";
 
 const Home = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -15,7 +23,7 @@ const Home = () => {
   useEffect(() => {
     setIsVisible(true);
     const interval = setInterval(() => {
-      setActiveParticle(prev => (prev + 1) % 20);
+      setActiveParticle((prev) => (prev + 1) % 20);
     }, 200);
     return () => clearInterval(interval);
   }, []);
@@ -24,14 +32,14 @@ const Home = () => {
     { icon: BarChart3, name: "Sales Analytics", delay: "0s" },
     { icon: Package, name: "Inventory Tracking", delay: "0.5s" },
     { icon: TrendingUp, name: "Purchase Management", delay: "1s" },
-    { icon: DollarSign, name: "Revenue Insights", delay: "1.5s" }
+    { icon: DollarSign, name: "Revenue Insights", delay: "1.5s" },
   ];
 
   const capabilities = [
     "Real-time Stock Management",
     "Sales & Purchase Recording",
-    "Advanced Analytics Dashboard", 
-    "Multi-user Access Control"
+    "Advanced Analytics Dashboard",
+    "Multi-user Access Control",
   ];
 
   return (
@@ -41,12 +49,12 @@ const Home = () => {
         {[...Array(20)].map((_, i) => (
           <div
             key={i}
-            className={`particle ${activeParticle === i ? 'active' : ''}`}
+            className={`particle ${activeParticle === i ? "active" : ""}`}
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animation: `float ${3 + Math.random() * 2}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 3}s`
+              animationDelay: `${Math.random() * 3}s`,
             }}
           />
         ))}
@@ -64,38 +72,40 @@ const Home = () => {
           <h1 className="logo-text">Willin</h1>
         </div>
         <div className="auth-buttons">
-          <button 
-            className="sign-up-btn" 
-            onClick={() => handleNavigation('/signup')}
+          <button
+            className="auth-btn signup-color"
+            onClick={() => handleNavigation("/signup")}
           >
             <User className="icon" />
             <span>Sign Up</span>
           </button>
-          <button 
-            className="login-btn" 
-            onClick={() => handleNavigation('/login')}
+          <button
+            className="auth-btn login-color"
+            onClick={() => handleNavigation("/login")}
           >
             <LogIn className="icon" />
-            <span>Login</span> 
+            <span>Login</span>
           </button>
         </div>
       </nav>
 
       {/* Hero Section */}
       <div className="hero-section">
-        <div className={`hero-content ${isVisible ? 'visible' : ''}`}>
+        <div className={`hero-content ${isVisible ? "visible" : ""}`}>
           <h2 className="hero-title">
             <span className="forge-text">Smart Inventory</span>
             <br />
             <span className="future-text">Management</span>
           </h2>
           <p className="hero-subtext">
-            Streamline your business operations with comprehensive inventory tracking, sales management, and powerful analytics. Built for modern businesses that demand efficiency.
+            Streamline your business operations with comprehensive inventory
+            tracking, sales management, and powerful analytics. Built for modern
+            businesses that demand efficiency.
           </p>
 
-          <button 
-            className="hero-button" 
-            onClick={() => handleNavigation('/explore')}
+          <button
+            className="hero-button"
+            onClick={() => handleNavigation("/explore")}
           >
             <span>Get Started</span>
             <ChevronRight className="arrow-icon" />
@@ -107,9 +117,9 @@ const Home = () => {
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <div 
-                key={index} 
-                className={`tool-card ${isVisible ? 'visible' : ''}`}
+              <div
+                key={index}
+                className={`tool-card ${isVisible ? "visible" : ""}`}
                 style={{ transitionDelay: feature.delay }}
               >
                 <div className="tool-icon-wrapper">
@@ -149,7 +159,7 @@ const Home = () => {
           </div>
         </div>
       </footer>
-       </div>
+    </div>
   );
 };
 
