@@ -62,7 +62,7 @@ const RevenueSummary = () => {
     const filteredSales = filterDataByDate(sales);
     const filteredPurchases = filterDataByDate(purchases);
 
-    const totalRevenue = filteredSales.reduce((sum, sale) => sum + (sale.quantity * sale.price), 0);
+    const totalRevenue = filteredSales.reduce((sum, sale) => sum + sale.price, 0);
     const totalCosts = filteredPurchases.reduce((sum, purchase) => sum + purchase.price, 0);
     const grossProfit = totalRevenue - totalCosts;
     const profitMargin = totalRevenue ? (grossProfit / totalRevenue) * 100 : 0;
@@ -82,10 +82,10 @@ const RevenueSummary = () => {
     const filteredPurchases = filterDataByDate(purchases);
     const data = {};
 
-    filteredSales.forEach(({ date, price, quantity }) => {
+    filteredSales.forEach(({ date, price }) => {
       const key = date.slice(0, 7); 
       if (!data[key]) data[key] = { month: key, revenue: 0, costs: 0, profit: 0 };
-      data[key].revenue += price * quantity;
+      data[key].revenue += price ;
     });
 
     filteredPurchases.forEach(({ date, price }) => {
@@ -104,7 +104,7 @@ const RevenueSummary = () => {
   const topCustomers = (() => {
     const customers = {};
     filterDataByDate(sales).forEach(sale => {
-      const rev = sale.price * sale.quantity;
+      const rev = sale.price;
       customers[sale.customerName] = (customers[sale.customerName] || 0) + rev;
     });
 

@@ -78,13 +78,13 @@ const SalesAnalysis = () => {
       return;
     }
 
-    const totalRevenue = data.reduce((sum, sale) => sum + (Number(sale.price) * Number(sale.quantity)), 0);
+    const totalRevenue = data.reduce((sum, sale) => sum + Number(sale.price), 0);
     const uniqueCustomers = new Set(data.map(s => s.customerName)).size;
     
     // Find top product by revenue
     const productRevenue = {};
     data.forEach(s => {
-      const revenue = Number(s.price) * Number(s.quantity);
+      const revenue = Number(s.price);
       productRevenue[s.productName] = (productRevenue[s.productName] || 0) + revenue;
     });
     const topProduct = Object.keys(productRevenue).reduce((a, b) => productRevenue[a] > productRevenue[b] ? a : b, "N/A");
@@ -92,7 +92,7 @@ const SalesAnalysis = () => {
     // Find top customer by total revenue
     const customerRevenue = {};
     data.forEach(s => {
-      const revenue = Number(s.price) * Number(s.quantity);
+      const revenue = Number(s.price);
       customerRevenue[s.customerName] = (customerRevenue[s.customerName] || 0) + revenue;
     });
     const topCustomer = Object.keys(customerRevenue).reduce((a, b) => customerRevenue[a] > customerRevenue[b] ? a : b, "N/A");
@@ -130,7 +130,7 @@ const SalesAnalysis = () => {
         monthlyData[monthKey] = { month: monthKey, totalRevenue: 0, count: 0 };
       }
       
-      const revenue = Number(sale.price) * Number(sale.quantity);
+      const revenue = Number(sale.price);
       monthlyData[monthKey].totalRevenue += revenue;
       monthlyData[monthKey].count += 1;
     });
@@ -143,7 +143,7 @@ const SalesAnalysis = () => {
     const customerData = {};
     
     filteredSales.forEach(sale => {
-      const revenue = Number(sale.price) * Number(sale.quantity);
+      const revenue = Number(sale.price);
       if (!customerData[sale.customerName]) {
         customerData[sale.customerName] = { name: sale.customerName, revenue: 0, count: 0 };
       }
@@ -162,7 +162,7 @@ const SalesAnalysis = () => {
     const productData = {};
     
     filteredSales.forEach(sale => {
-      const revenue = Number(sale.price) * Number(sale.quantity);
+      const revenue = Number(sale.price);
       if (!productData[sale.productName]) {
         productData[sale.productName] = { name: sale.productName, quantity: 0, revenue: 0 };
       }
@@ -264,13 +264,13 @@ const SalesAnalysis = () => {
           <div className="metric-card">
             <h3 className="metric-title">Total Revenue</h3>
             <p className="metric-value amount-value">
-              ₵{filteredSales.reduce((sum, s) => sum + (Number(s.price) * Number(s.quantity)), 0).toLocaleString('en-US', {minimumFractionDigits: 2})}
+              ₵{filteredSales.reduce((sum, s) => sum + Number(s.price), 0).toLocaleString('en-US', {minimumFractionDigits: 2})}
             </p>
           </div>
           <div className="metric-card">
             <h3 className="metric-title">Avg Sale Value</h3>
             <p className="metric-value avg-value">
-              ₵{filteredSales.length > 0 ? (filteredSales.reduce((sum, s) => sum + (Number(s.price) * Number(s.quantity)), 0) / filteredSales.length).toLocaleString('en-US', {minimumFractionDigits: 2}) : '0.00'}
+              ₵{filteredSales.length > 0 ? (filteredSales.reduce((sum, s) => sum + Number(s.price), 0) / filteredSales.length).toLocaleString('en-US', {minimumFractionDigits: 2}) : '0.00'}
             </p>
           </div>
           <div className="metric-card">
@@ -411,7 +411,7 @@ const SalesAnalysis = () => {
                       ₵{Number(sale.price).toLocaleString('en-US', {minimumFractionDigits: 2})}
                     </td>
                     <td className="table-cell amount-cell">
-                      ₵{(Number(sale.price) * Number(sale.quantity)).toLocaleString('en-US', {minimumFractionDigits: 2})}
+                      ₵{Number(sale.price).toLocaleString('en-US', {minimumFractionDigits: 2})}
                     </td>
                     <td className="table-cell">
                       {sale.customerNumber}

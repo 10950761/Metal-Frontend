@@ -39,91 +39,126 @@ const SignUp = () => {
     <GoogleOAuthProvider clientId="375498918262-8rslufij4lp2vdj55ig89kuc6d5ts78g.apps.googleusercontent.com">
       <div className="signup-wrapper">
         <div className="signup-left">
-          <h1 style={{ color: "white", fontSize: "2rem" }}>
-            Welcome to Metal Tools Pro Shop
-          </h1>
-          <br />
-          <p
-            style={{
-              color: "white",
-              fontSize: "1.2rem",
-              fontStyle: "italic",
-              marginTop: "0.5rem",
-            }}
-          >
-            Join us to explore the world of metal tools with advanced tools and
-            a vibrant community.
-          </p>
+          <div className="brand-section">
+            <h1 className="brand-title">
+              Welcome to <span className="brand-name">Willin</span>
+            </h1>
+            <h2 className="brand-subtitle">Business Manager</h2>
+            <div className="feature-highlights">
+              <div className="feature-item">
+                <div className="feature-icon">📊</div>
+                <span>Sales & Purchase Analytics</span>
+              </div>
+              <div className="feature-item">
+                <div className="feature-icon">📈</div>
+                <span>Revenue Tracking</span>
+              </div>
+              <div className="feature-item">
+                <div className="feature-icon">📦</div>
+                <span>Inventory Management</span>
+              </div>
+              <div className="feature-item">
+                <div className="feature-icon">🎯</div>
+                <span>Business Insights</span>
+              </div>
+            </div>
+            <p className="brand-description">
+              Streamline your business operations with comprehensive inventory tracking, 
+              sales management, and powerful analytics - all in one platform.
+            </p>
+          </div>
         </div>
 
         <div className="signup-container">
           <div className="signup-right">
             <div className="signup-box">
-              <h2>Create Account</h2>
+              <div className="signup-header">
+                <h2>Create Your Account</h2>
+                <p>Join thousands of businesses managing their inventory efficiently</p>
+              </div>
+              
               <form onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  name="username"
-                  placeholder="Username"
-                  value={formData.username}
-                  onChange={handleChange}
-                  required
-                />
-
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-
-                <div className="password-container">
+                <div className="input-group">
                   <input
-                    name="password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Password"
-                    value={formData.password}
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    value={formData.username}
                     onChange={handleChange}
                     required
+                    className="form-input"
                   />
-                  {showPassword ? (
-                    <FaEyeSlash
-                      className="eye-icon"
-                      onClick={() => setShowPassword(false)}
-                    />
-                  ) : (
-                    <FaEye
-                      className="eye-icon"
-                      onClick={() => setShowPassword(true)}
-                    />
-                  )}
                 </div>
 
-                <div className="password-container">
+                <div className="input-group">
                   <input
-                    name="confirmpassword"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Confirm Password"
-                    value={formData.confirmpassword}
+                    type="email"
+                    name="email"
+                    placeholder="Email Address"
+                    value={formData.email}
                     onChange={handleChange}
                     required
+                    className="form-input"
                   />
-                  {showPassword ? (
-                    <FaEyeSlash
-                      className="eye-icon"
-                      onClick={() => setShowPassword(false)}
-                    />
-                  ) : (
-                    <FaEye
-                      className="eye-icon"
-                      onClick={() => setShowPassword(true)}
-                    />
-                  )}
                 </div>
 
-                <button type="submit">Sign Up</button>
+                <div className="input-group">
+                  <div className="password-container">
+                    <input
+                      name="password"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      required
+                      className="form-input password-input"
+                    />
+                    {showPassword ? (
+                      <FaEyeSlash
+                        className="eye-icon"
+                        onClick={() => setShowPassword(false)}
+                      />
+                    ) : (
+                      <FaEye
+                        className="eye-icon"
+                        onClick={() => setShowPassword(true)}
+                      />
+                    )}
+                  </div>
+                </div>
+
+                <div className="input-group">
+                  <div className="password-container">
+                    <input
+                      name="confirmpassword"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Confirm Password"
+                      value={formData.confirmpassword}
+                      onChange={handleChange}
+                      required
+                      className="form-input password-input"
+                    />
+                    {showPassword ? (
+                      <FaEyeSlash
+                        className="eye-icon"
+                        onClick={() => setShowPassword(false)}
+                      />
+                    ) : (
+                      <FaEye
+                        className="eye-icon"
+                        onClick={() => setShowPassword(true)}
+                      />
+                    )}
+                  </div>
+                </div>
+
+                <button type="submit" className="signup-btn">
+                  Create Account
+                </button>
+
+                <div className="divider">
+                  <span>or continue with</span>
+                </div>
 
                 <div className="google-signup">
                   <GoogleLogin
@@ -168,8 +203,8 @@ const SignUp = () => {
                   />
                 </div>
 
-                <p className="extra-links">
-                  Already have an account? <Link to="/login">Login</Link>
+                <p className="login-link">
+                  Already have an account? <Link to="/login" className="link">Sign In</Link>
                 </p>
               </form>
             </div>

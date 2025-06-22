@@ -19,6 +19,7 @@ const Login = () => {
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -45,71 +46,103 @@ const Login = () => {
       <div className="login-wrapper">
         <div className="signup-wrapper">
           <div className="signup-left">
-            <h1 style={{ color: "white", fontSize: "2rem" }}>
-              Welcome to Metal Tools Pro Shop
-            </h1>
-            <br />
-            <p
-              style={{
-                color: "white",
-                fontSize: "1.2rem",
-                fontStyle: "italic",
-                marginTop: "0.5rem",
-              }}
-            >
-              Join us to explore the world of metal tools with advanced tools
-              and a vibrant community.
-            </p>
+            <div className="brand-section">
+              <h1 className="brand-title">
+                Welcome back to <span className="brand-name">Willin</span>
+              </h1>
+              <h2 className="brand-subtitle">Business Manager</h2>
+              <div className="feature-highlights">
+                <div className="feature-item">
+                  <div className="feature-icon">📊</div>
+                  <span>Sales & Purchase Analytics</span>
+                </div>
+                <div className="feature-item">
+                  <div className="feature-icon">📈</div>
+                  <span>Revenue Tracking</span>
+                </div>
+                <div className="feature-item">
+                  <div className="feature-icon">📦</div>
+                  <span>Inventory Management</span>
+                </div>
+                <div className="feature-item">
+                  <div className="feature-icon">🎯</div>
+                  <span>Business Insights</span>
+                </div>
+              </div>
+              <p className="brand-description">
+                Continue managing your business operations with comprehensive inventory tracking, 
+                sales management, and powerful analytics dashboard.
+              </p>
+            </div>
           </div>
 
           <div className="signup-container">
             <div className="signup-right">
               <div className="login-box">
-                <h2>Login to Your Account</h2>
+                <div className="login-header">
+                  <h2>Welcome Back</h2>
+                  <p>Sign in to access your business dashboard</p>
+                </div>
+                
                 <form onSubmit={handleSubmit}>
-                  <input
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={formData.username}
-                    onChange={handleChange}
-                    required
-                  />
-
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
-
-                  <div className="password-container">
+                  <div className="input-group">
                     <input
-                      name="password"
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Password"
-                      value={formData.password}
+                      type="text"
+                      name="username"
+                      placeholder="Username"
+                      value={formData.username}
                       onChange={handleChange}
                       required
+                      className="form-input"
                     />
-                    {showPassword ? (
-                      <FaEyeSlash
-                        className="eye-icon"
-                        onClick={() => setShowPassword(false)}
-                      />
-                    ) : (
-                      <FaEye
-                        className="eye-icon"
-                        onClick={() => setShowPassword(true)}
-                      />
-                    )}
                   </div>
 
-                  <button type="submit">Login</button>
+                  <div className="input-group">
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email Address"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="form-input"
+                    />
+                  </div>
 
-                  <div class = "google-signup">
+                  <div className="input-group">
+                    <div className="password-container">
+                      <input
+                        name="password"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                        className="form-input password-input"
+                      />
+                      {showPassword ? (
+                        <FaEyeSlash
+                          className="eye-icon"
+                          onClick={() => setShowPassword(false)}
+                        />
+                      ) : (
+                        <FaEye
+                          className="eye-icon"
+                          onClick={() => setShowPassword(true)}
+                        />
+                      )}
+                    </div>
+                  </div>
+
+                  <button type="submit" className="login-btn">
+                    Sign In
+                  </button>
+
+                  <div className="divider">
+                    <span>or continue with</span>
+                  </div>
+
+                  <div className="google-signup">
                     <GoogleLogin
                       onSuccess={async (credentialResponse) => {
                         try {
@@ -155,8 +188,8 @@ const Login = () => {
                     />
                   </div>
 
-                  <p className="extra-links">
-                    Don't have an account? <Link to="/signup">Sign Up</Link>
+                  <p className="signup-link">
+                    Don't have an account? <Link to="/signup" className="link">Create Account</Link>
                   </p>
                 </form>
               </div>

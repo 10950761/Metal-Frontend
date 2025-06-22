@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import { FaSearch, FaUserCircle, FaBars, FaTimes, } from "react-icons/fa";
+import {  FaUserCircle, FaBars, FaTimes, FaChartLine } from "react-icons/fa";
 import NotificationBell from "../../topcomponents/Notification";
 import "./index.css";
 
 const Navbar = ({ toggleSidebar }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const [image, setImage] = useState(null);
   const [username, setUsername] = useState("User");
   const navigate = useNavigate();
@@ -48,8 +47,12 @@ const Navbar = ({ toggleSidebar }) => {
           <FaBars />
         </button>
         <div className="navbar-logo">
-          <span className="logo-icon">🔧</span>
-          <span className="logo-text">Metal Tools Pro</span>
+          <div className="logo-container">
+            <FaChartLine className="logo-icon" />
+            <div className="logo-text-container">
+              <span className="logo-brand">Willin</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -58,65 +61,72 @@ const Navbar = ({ toggleSidebar }) => {
         <button 
           className="nav-link" 
           onClick={() => {
-            navigate('/');
+            navigate('/dashboard');
             setIsMenuOpen(false);
           }}
         >
-          Home
+          <span className="nav-icon">📊</span>
+          Dashboard
         </button>
         <button 
           className="nav-link" 
           onClick={() => {
-            navigate('/about');
+            navigate('/inventory');
             setIsMenuOpen(false);
           }}
         >
-          About
+          <span className="nav-icon">📦</span>
+          Inventory
         </button>
         <button 
           className="nav-link" 
           onClick={() => {
-            navigate('/contact');
+            navigate('/analytics');
             setIsMenuOpen(false);
           }}
         >
-          Contacts
+          <span className="nav-icon">📈</span>
+          Analytics
+        </button>
+        <button 
+          className="nav-link" 
+          onClick={() => {
+            navigate('/reports');
+            setIsMenuOpen(false);
+          }}
+        >
+          <span className="nav-icon">📋</span>
+          Reports
         </button>
       </div>
 
       {/* Right Section */}
       <div className="navbar-right">
-        <div className="search-box">
-          <FaSearch className="search-icon" />
-          <input
-            type="text"
-            placeholder="Search tools..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            aria-label="Search tools"
-          />
-        </div>
+        <div className="navbar-actions">
+          <div className="icon-wrapper notification-bell">
+            <NotificationBell />
+          </div>
 
-        <div className="icon-wrapper notification-bell">
-          <NotificationBell />
-        </div>
-
-        <div className="user-profile">
-          <label htmlFor="upload-profile" className="profile-image-label">
-            {image ? (
-              <img src={image} alt="Profile" className="profile-image" />
-            ) : (
-              <FaUserCircle className="default-icon" />
-            )}
-            <input
-              type="file"
-              id="upload-profile"
-              accept="image/*"
-              style={{ display: "none" }}
-              onChange={handleImageChange}
-            />
-          </label>
-          <span className="username">{username}</span>
+          <div className="user-profile">
+            <label htmlFor="upload-profile" className="profile-image-label">
+              {image ? (
+                <img src={image} alt="Profile" className="profile-image" />
+              ) : (
+                <FaUserCircle className="default-icon" />
+              )}
+              <input
+                type="file"
+                id="upload-profile"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={handleImageChange}
+              />
+            </label>
+            <div className="user-info">
+              <span className="username">{username}</span>
+              <span className="user-role">Business Manager</span>
+            </div>
+          </div>
         </div>
 
         <button
