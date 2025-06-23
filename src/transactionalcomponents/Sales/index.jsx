@@ -81,7 +81,7 @@ const Sales = () => {
 
   return (
     <div className="sales-container">
-      <h2 className="sales-title">New Metal Sale</h2>
+      <h1 className="sales-title">New Sales Record </h1>
 
       {submitSuccess && (
         <div className="success-message">Sale recorded successfully!</div>
