@@ -105,7 +105,7 @@ const Home = () => {
 
           <button
             className="hero-button"
-            onClick={() => handleNavigation("/explore")}
+            onClick={() => handleNavigation("/signup")}
           >
             <span>Get Started</span>
             <ChevronRight className="arrow-icon" />

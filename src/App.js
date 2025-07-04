@@ -7,7 +7,6 @@ import ProfileDetails from './topcomponents/Profile';
 import SignUp from './pages/SignUp';
 import Login from './pages/LogIn';
 import Dashboard from './components/Dashboard';
-import Explore from './homepagecomponents/Exploretools';
 import RecentSales from './transactionalcomponents/RecentSales';
 import RecentPurchases from './transactionalcomponents/RecentPurchase';
 import Sales from './transactionalcomponents/Sales';
@@ -39,7 +38,6 @@ function App() {
     <div className={`app ${themeClass}`}>
       <Routes>
         <Route path="/" element={<Home darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
-        <Route path="/explore" element={<Explore darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
         <Route path="/about" element={<About darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
         <Route path='/contact' element={<Contact darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
         <Route path="/login" element={<Login setUser={setUser} darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
